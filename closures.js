@@ -32,8 +32,7 @@ module.exports = {
                 let newPrice = (1-number)*originalPrice;
                 return newPrice;
             }
-        }
-        
+        }   
     },
 
     /**
@@ -47,7 +46,24 @@ module.exports = {
      *  user.getName();                 // return 'Francis Bacon'
      */
     user: function () {
-        
+       let name = '';
+        return{
+            setName: function(input){
+                
+                let nameTest = new RegExp('^[A-Za-z ]+$');
+                if (nameTest.test(input) === true){
+                    name = input;
+                 return true;
+             }else{
+                    return false;
+             }
+            
+        },
+          
+            getName: function(){
+                return name;
+            }
+        }
     },
 
     /**
@@ -62,6 +78,27 @@ module.exports = {
      *  console.log(lives.left()); // 5
      */
     lives: function (start) {
+   
+        let livesLeft = start;
+
+        return{
+            
+            died: function(){
+               livesLeft = livesLeft - 1;
+                return livesLeft;
+            },
+     
+            left: function(){
+                return livesLeft;
+            },
+             
+            restart: function(){
+                livesLeft = start;
+                return livesLeft;
+
+            },
+
+        }
         
     },
 
@@ -76,7 +113,14 @@ module.exports = {
      *  console.log(msg); // '[2] second message'
      */
     messages: function () {
-        
+       let counter = 0;
+       return{ 
+        record: function (message){
+            counter = counter +1;
+            return '['+ counter+ '] ' + message; 
+
+        }
+       }
     },
 
     /**
@@ -100,6 +144,30 @@ module.exports = {
      *  console.log(pocket.trinkets()); // 1
      */
     pocket: function (start) {
+        let trinkets = 0;
+        let coins = start;
+
+        return{
+            coins: function(){
+                return coins;
+            },
+
+            buy: function(){
+                coins = coins - 10;
+                trinkets = trinkets +1;
+                return trinkets;
+            },
+
+            trinkets: function(){
+                return trinkets;
+            },
+
+            sell: function(){
+                coins = coins + 5;
+                trinkets = trinkets - 1;
+                return trinkets;
+            },
+        }
         
     },
 
@@ -109,6 +177,13 @@ module.exports = {
      *  multiply(3)(5); // return 15
      */
     multiply: function (val) {
+        let number = val;
+
+        return function(num){   
+           let total = val * num;
+           return total;
+        }
+
         
     },
 };
